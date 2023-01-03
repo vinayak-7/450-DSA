@@ -1,4 +1,4 @@
-Reverse The Array(https://www.codingninjas.com/codestudio/problems/reverse-the-array_1262298)
+1. Reverse The Array(https://www.codingninjas.com/codestudio/problems/reverse-the-array_1262298)
 #include <bits/stdc++.h> 
 void reverseArray(vector<int> &arr , int m)
 {
