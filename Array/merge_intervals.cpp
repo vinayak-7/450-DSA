@@ -1,34 +1,35 @@
-class Solution {
-public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+/*
+    Time Complexity: O(N * log(N))
+    Space Complexity: O(1)
 
-        if(intervals.size() == 0)
+    Where N is the number of intervals.
+*/
+
+#include <algorithm>
+
+vector<vector<int>> mergeIntervals(vector<vector<int>> &intervals)
+{
+    int n = intervals.size();
+    sort(intervals.begin(), intervals.end());
+    vector<vector<int>> res;
+
+    for (int i = 0; i < n; i++)
+    {
+        int curS = intervals[i][0];
+        int curE = intervals[i][1];
+
+	    // If current interval doesn't overlap with the previous interval.
+        if (res.size() == 0 || curS > res[res.size() - 1][1]) 
         {
-            return intervals;
-        }
-        
-        sort(intervals.begin(),intervals.end());
-        vector<vector<int>> ans;
-        
-        int start = intervals[0][0];
-        int end = intervals[0][1];
 
-        for(auto& it:intervals)
+            res.push_back(intervals[i]);
+        }
+        // If current interval overlaps with the previous interval.
+        else 
         {
-            if(it[0] <= end)
-            {
-                end = max(end , it[1]);
-            }
-            else
-            {
-                ans.push_back({start,end});
-                start = it[0];
-                end = it[1];
-            }
-
+            res[res.size() - 1][1] = max(res[res.size() - 1][1], curE);
         }
-        ans.push_back({start,end});
-
-        return ans;
     }
-};
+
+    return res;
+}
